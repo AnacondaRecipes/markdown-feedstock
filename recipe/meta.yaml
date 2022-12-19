@@ -12,6 +12,7 @@ source:
 
 build:
   number: 0
+  skip: True  # [py<37]
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vvv"
   entry_points:
     - markdown_py = markdown.__main__:run
@@ -20,28 +21,33 @@ requirements:
   host:
     - python
     - pip
+    - setuptools
+    - wheel
   run:
-    - importlib-metadata
     - python
+    - importlib-metadata >=4.4  # [py<310]
 
 test:
   imports:
     - markdown
     - markdown.extensions
+  requires:
+    - pip
   commands:
+    - pip check
     - markdown_py -h
 
 about:
-  home: https://pythonhosted.org/Markdown/
+  home: https://github.com/Python-Markdown/markdown
   license: BSD-3-Clause
   license_family: BSD
   license_file: LICENSE.md
-  summary: 'Python implementation of Markdown.'
+  summary: Python implementation of Markdown.
   description: |
     This is a Python implementation of John Gruber’s Markdown. It is almost
     completely compliant with the reference implementation, though there are a
     few very minor differences.
-  doc_url: http://pythonhosted.org/Markdown/
+  doc_url: https://python-markdown.github.io/
   dev_url: https://github.com/Python-Markdown/markdown
 
 extra:
