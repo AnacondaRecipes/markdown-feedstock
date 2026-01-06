@@ -1,5 +1,5 @@
 {% set name = "Markdown" %}
-{% set version = "3.8" %}
+{% set version = "3.10" %}
 
 package:
   name: {{ name|lower }}
@@ -7,12 +7,12 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name | lower }}-{{ version }}.tar.gz
-  sha256: 7df81e63f0df5c4b24b7d156eb81e4690595239b7d70937d0409f1b0de319c6f
+  sha256: 37062d4f2aa4b2b6b32aefb80faa300f82cc790cb949a35b8caede34f2b68c0e
 
 build:
   number: 0
-  skip: True  # [py<39]
-  script: "{{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed -vvv"
+  skip: true  # [py<310]
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed -vvv
   entry_points:
     - markdown_py = markdown.__main__:run
 
@@ -21,7 +21,6 @@ requirements:
     - python
     - pip
     - setuptools >=77.0
-    - wheel
   run:
     - python
     - importlib-metadata >=4.4  # [py<310]
